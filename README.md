@@ -8,4 +8,4 @@ During the development 🔧 of the project, the Django administrative system was
 
 #### Requirements
 - **[Python 3.x+](https://www.python.org/)**
-- **[Pygame](https://www.djangoproject.com/)**
+- **[Django 2.x+](https://www.djangoproject.com/)**
