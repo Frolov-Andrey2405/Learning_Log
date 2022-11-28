@@ -4,5 +4,5 @@ from django.shortcuts import render
 
 def index(request):
     '''Learning Log Homepage'''
-    return render(request, 'Learning_logs/index.html', )
+    return render(request, 'Learning_logs/index.html')
     
