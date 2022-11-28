@@ -8,4 +8,8 @@ app_name = 'learning_logs'
 urlpatterns = [
     # Homepage
     path('', views.index, name='index'),
+
+    # Page with a list of all topics
+    path('topics/', views.topics, name='topics')
+    # We added topics/ to the regular expression argument used with the homepage URL
 ]
