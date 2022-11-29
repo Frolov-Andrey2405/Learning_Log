@@ -9,7 +9,10 @@ urlpatterns = [
     # Homepage
     path('', views.index, name='index'),
 
-    # Page that shows all topics.
+    # Page that shows all topics
     path('topics/', views.topics, name='topics'),
     # We added topics/ to the regular expression argument used with the homepage URL
+
+    # Detail page for a single topic
+    path('topics/<int:topic_id>/', views.topics, name='topic'),
 ]
