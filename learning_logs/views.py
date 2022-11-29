@@ -39,9 +39,3 @@ def topic(request, topic_id):
 
     return render(request, 'learning_logs/topic.html', context)
     # Send context to the template topic.html
-
-
-'''
-This is the first view function that requires a parameter other than the 
-request object
-'''
