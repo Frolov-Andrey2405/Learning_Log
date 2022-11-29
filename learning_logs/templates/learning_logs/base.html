@@ -1,6 +1,8 @@
 <p>
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a>
     <!-- Creates a paragraph with the name of the project, which also works as a link to the home page -->
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+    <a href="{% url 'learning_logs:topics' %}">Topics</a>
+    <!-- We add a dash after the link to the home page, and then add a link to the topics page  -->
 </p>
 
 {% block content %}{% endblock content %}
