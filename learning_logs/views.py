@@ -61,14 +61,14 @@ def new_topic(request):
         form = TopicForm(data=request.POST)
         if form.is_valid():  # Sent information cannot be saved in the database until it is verified
 
-            # If all data are valid, you can call the save() method, 
+            # If all data are valid, you can call the save() method,
             # which writes data from the form to the database
             form.save()
 
-            #A call to redirect the browser to the topics page, 
-            # where the user where the user will see 
+            # A call to redirect the browser to the topics page,
+            # where the user where the user will see
             # the topic he/she just entered in the general list of topics
-            return redirect('learning_logs:topics') 
+            return redirect('learning_logs:topics')
 
     # Output a blank or invalid form
     context = {'form': form}
