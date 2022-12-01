@@ -41,17 +41,35 @@ def topic(request, topic_id):
     return render(request, 'learning_logs/topic.html', context)
     # Send context to the template topic.html
 
+
 def new_topic(request):
-    """Определяет новую тему"""
+    """
+    Defines a new topic.
+
+    The new_topic() function receives a request object as a parameter. 
+    When the user first requests this page, his browser sends a GET request. 
+    When the user has already filled out and submitted the form, his browser sends a POST request. 
+    Depending on the type of request, we determine whether the user has requested a 
+    blank form (GET request) or offers to process a completed form (POST request).
+    """
+
     if request.method != 'POST':
-        # Данные не отправлялись; создаётся пустая форма
+        # No data was sent; an empty form is created
         form = TopicForm()
     else:
-        # Отправлены данные POST; обработка данных
+        # POST data sent; data processing
         form = TopicForm(data=request.POST)
-        if form.is_valid():
+        if form.is_valid():  # Sent information cannot be saved in the database until it is verified
+
+            # If all data are valid, you can call the save() method, 
+            # which writes data from the form to the database
             form.save()
-            return redirect('learning_logs:topics')
-    # Вывести пустую или недействительную форму
+
+            #A call to redirect the browser to the topics page, 
+            # where the user where the user will see 
+            # the topic he/she just entered in the general list of topics
+            return redirect('learning_logs:topics') 
+
+    # Output a blank or invalid form
     context = {'form': form}
-    return render(request, 'learning_logs/new_topic.html', context) 
+    return render(request, 'learning_logs/new_topic.html', context)
