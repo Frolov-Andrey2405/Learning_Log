@@ -15,6 +15,10 @@
         <p>{{ entry.text|linebreaks }}</p>
         <!-- The filter makes sure that the long text contains line breaks in the format supported by the browser -->
 
+        <p>
+            <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+        </p>
+
     </li>
     {% empty %}
     <!-- Template tag is used to display a message about missing entries -->
