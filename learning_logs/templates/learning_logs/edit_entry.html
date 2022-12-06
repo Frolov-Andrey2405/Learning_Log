@@ -7,12 +7,19 @@
 <p>Edit entry:</p>
 
 <form action="{ % url 'learning_logs:edit_entry' entry.id % }" method="post">
+<!-- 
+The action argument sends the edit_entry() form for processing. 
+The record ID is included as an argument in the {% url %} tag so that 
+the view function can change the correct record object
+-->
 
-    {% csrf_token %}
-    <!-- Template tag to prevent unauthorized attempts to access the server -->
-    {{ form.as_p }}
-    <!-- A form is displayed -->
-    <button name="submit">Save changes</button>
+    {% csrf_token %} <!-- Template tag to prevent unauthorized attempts to access the server -->
+    {{ form.as_p }} <!-- A form is displayed -->
+
+    <button name="submit">Save changes</button> 
+    <!-- A send button data is created with text that reminds 
+        the user that they are saving changes rather than creating a new record -->
+
 </form>
 
 {% endblock content %}
