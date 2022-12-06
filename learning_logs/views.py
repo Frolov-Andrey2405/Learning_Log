@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Topic
+from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
 # Create your views here.
@@ -110,3 +110,36 @@ def new_entry(request, topic_id):
     # Output a blank or invalid form
     context = {'topic': topic, 'form': form, }
     return render(request, 'learning_logs/new_entry.html', context)
+
+
+def edit_entry(request, entry_edit):
+    '''Edits an existing entry'''
+
+    # Getting the object of the of the entry that the user wants to change, and the topic associated with that entry
+    entry = Entry.objects.get(id=entry_edit)
+    topic = entry.topic
+
+    if request.method != 'POST':
+        # Initial query; the form is filled with the data of the current record
+        form = EntryForm(instance=entry)
+        # The argument tells Django to create a form, pre-filled with information from
+        # an existing record object. The user sees his existing data and can edit it.
+
+    else:
+        # Send POST data; process the data
+        form = EntryForm(instance=entry, data=request.POST)
+        # They command Django to create a form instance based on the information of an existing record object,
+        # updated with data from request.POST
+
+        if form.is_valid():
+            form.save()  # If the data is correct, a call to save() without arguments follows
+
+            # Then the user is redirected to the topic page and sees the updated version of the post he edited
+            return redirect('learning_logs:topic', topic_id=topic.id)
+
+    context = {
+        'entry': entry,
+        'topic': topic,
+        'form': form,
+    }
+    return render(request, 'learning_logs/edit_entry.html', context)
