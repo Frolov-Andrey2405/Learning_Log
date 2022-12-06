@@ -5,6 +5,11 @@
 <!-- Output the current topic from a template variable -->
 
 <p>Entries:</p>
+
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+</p>
+
 <ul>
     <!-- A bulleted list is created with weighted entries on the topic -->
     {% for entry in entries %}
@@ -14,10 +19,6 @@
 
         <p>{{ entry.text|linebreaks }}</p>
         <!-- The filter makes sure that the long text contains line breaks in the format supported by the browser -->
-
-        <p>
-            <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
-        </p>
 
         <p>
             <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
