@@ -19,6 +19,10 @@
             <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
         </p>
 
+        <p>
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
+        </p>
+
     </li>
     {% empty %}
     <!-- Template tag is used to display a message about missing entries -->
