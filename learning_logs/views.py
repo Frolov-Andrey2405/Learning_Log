@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Topic
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 
 # Create your views here.
 
@@ -73,3 +73,40 @@ def new_topic(request):
     # Output a blank or invalid form
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
+
+
+def new_entry(request, topic_id):
+    '''Adds a new entry on a specific topic.
+
+    new_entry() contains the topic_id parameter to store the value obtained from the URL. 
+    The topic_id is needed to display the page and process the form data
+    '''
+
+    # For to get the right subject matter
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method != 'POST':
+        # No data was sent; an empty form is created
+        form = TopicForm()
+    else:
+        # POST data sent; data processing
+        form = TopicForm(data=request.POST)
+        if form.is_valid():  # Sent information cannot be saved in the database until it is verified
+
+            new_entry = form.save(commit=False)
+            # When calling save(), we include the commit=False argument to create
+            # a new record object and save it to new_entry without saving it to the database yet
+
+            new_entry.topic = topic
+            new_entry.save()
+            # We assign to the topic attribute of the new_entry object the topic
+            # read from the database at the beginning of the function and then call save() without arguments.
+            # The result is that the entry is saved in the database database with the correctly associated topic.
+
+            return redirect('learning_logs:topic', topic_id=topic_id)
+            # The redirect() call takes two arguments: the name of the view to which control is transferred
+            # and the argument for the view function
+
+    # Output a blank or invalid form
+    context = {'topic': topic, 'form': form, }
+    return render(request, 'learning_logs/new_entry.html', context)
