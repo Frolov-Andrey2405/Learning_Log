@@ -23,6 +23,9 @@ urlpatterns = [
     # The code includes the admin.site.urls module, which defines all URLs that can be requested from the administrative site
     path('admin/', admin.site.urls),
 
+    # This string will match any URL that starts with the word users
+    path('users/', include('users.urls')),
+
     # A line is added to enable the learning_logs.urls module
     path('', include('learning_logs.urls')),
 ]
