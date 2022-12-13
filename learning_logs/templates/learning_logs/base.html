@@ -11,12 +11,14 @@
     <!-- Verified users have an additional attribute username, 
         which will provide a personalized greeting and remind the user that the login has been -->
 
-        <a href="{% url 'users:logout' %}">Log out</a>
+    <a href="{% url 'users:logout' %}">Log out</a>
 
     {% else %}
+    <a href="{% url 'users:register' %}">Register</a> -
+    <!-- Non-registered users see a link to the registration page and a login link -->
+
     <a href="{% url 'users:login' %}">log in</a>
     <!-- The link to the login page for users who have not yet been verified -->
-
     {% endif %}
 </p>
 
