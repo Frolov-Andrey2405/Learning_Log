@@ -46,7 +46,5 @@ def register(request):
             '''
 
     # Output a blank or invalid form
-    context = {
-        'form': form,
-    }
+    context = { 'form': form, }
     return render(request, 'users/register.html', context)
