@@ -2,14 +2,24 @@
 {% block content %}
 
 {% if form.errors %}
+<!-- If the form's errors attribute is set, an error message is displayed -->
+
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
 <form method="post" action="{% url 'users:login' %}">
+    <!-- The view processes the form, the action argument is assigned to the URL of the login page -->
+
     {% csrf_token %}
     {{ form.as_p }}
+    <!-- The view sends the form to the template, we have to output the form -->
+
     <button name="submit">log in</button>
+    <!-- Button to send data -->
+
     <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+    <!-- Enables the hidden 'next' form element; the value argument tells 
+        Django where to to redirect the user after a successful login. -->
 </form>
 
 {% endblock content %}

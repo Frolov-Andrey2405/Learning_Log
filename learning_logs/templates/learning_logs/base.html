@@ -1,13 +1,20 @@
 <p>
     <!-- Creates a paragraph with the name of the project, which also works as a link to the home page -->
     <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-    <a href="{% url 'learning_logs:topics' %}">Topics</a> - 
+    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
     <!-- We add a dash after the link to the home page, and then add a link to the topics page  -->
 
     {% if user.is_authenticated %}
+    <!-- Display a welcome message for users who have logging in -->
+
     Hello, {{ user.username }}.
+    <!-- Verified users have an additional attribute username, 
+        which will provide a personalized greeting and remind the user that the login has been -->
+
     {% else %}
     <a href="{% url 'users:login' %}">log in</a>
+    <!-- The link to the login page for users who have not yet been verified -->
+    
     {% endif %}
 </p>
 
