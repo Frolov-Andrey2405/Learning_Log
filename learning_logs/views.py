@@ -10,7 +10,7 @@ def index(request):
     '''The home page for Learning Log'''
     return render(request, 'learning_logs/index.html')
 
-
+@login_required
 def topics(request):
     """Show all topics"""
     topics = Topic.objects.order_by('date_added')
@@ -43,6 +43,7 @@ def topic(request, topic_id):
     # Send context to the template topic.html
 
 
+@login_required
 def new_topic(request):
     """
     Defines a new topic.
@@ -76,6 +77,7 @@ def new_topic(request):
     return render(request, 'learning_logs/new_topic.html', context)
 
 
+@login_required
 def new_entry(request, topic_id):
     '''Adds a new entry on a specific topic.
 
@@ -113,6 +115,7 @@ def new_entry(request, topic_id):
     return render(request, 'learning_logs/new_entry.html', context)
 
 
+@login_required
 def edit_entry(request, entry_edit):
     '''Edits an existing entry'''
 
