@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 # Create your views here.
 
@@ -27,6 +28,16 @@ def topic(request, topic_id):
 
     topic = Topic.objects.get(id=topic_id)
     # Uses get() to retrieve the topic, just as we did in the Django shell
+
+    # Checks that the topic belongs to the current user.
+    if topic.owner != request.user:
+        raise Http404
+    '''
+    If the topic does not belong to the current user, 
+    an Http404 exception is thrown, and Django 
+    returns page with a 404 error.
+
+    '''
 
     entries = topic.entry_set.order_by('-date_added')
     # At we get the entries associated with this topic,
