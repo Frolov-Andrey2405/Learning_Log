@@ -136,6 +136,11 @@ def edit_entry(request, entry_edit):
     entry = Entry.objects.get(id=entry_edit)
     topic = entry.topic
 
+    if topic.owner != request.users:
+        raise Http404
+    # Whether the topic owner matches the current user; 
+    # an Http404 exception is thrown if it does not.
+
     if request.method != 'POST':
         # Initial query; the form is filled with the data of the current record
         form = EntryForm(instance=entry)
