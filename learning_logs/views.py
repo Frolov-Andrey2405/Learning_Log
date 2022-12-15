@@ -76,13 +76,20 @@ def new_topic(request):
         form = TopicForm(data=request.POST)
         if form.is_valid():  # Sent information cannot be saved in the database until it is verified
 
-            # If all data are valid, you can call the save() method,
-            # which writes data from the form to the database
-            form.save()
+            new_topic = form.save(commit=False)
+            '''
+            The first time form.save() is called, the argument commit=False is passed,
+            because the new theme must be changed before saving it to the database
+            '''
 
-            # A call to redirect the browser to the topics page,
-            # where the user where the user will see
-            # the topic he/she just entered in the general list of topics
+            new_topic.owner = request.user  # The owner attribute of a new topic is assigned to the current user
+            new_topic.save()  # Called save() for the topic instance we just defined
+
+            '''
+            A call to redirect the browser to the topics page,
+            where the user where the user will see
+            the topic he/she just entered in the general list of topics
+            '''
             return redirect('learning_logs:topics')
 
     # Output a blank or invalid form
@@ -110,18 +117,22 @@ def new_entry(request, topic_id):
         if form.is_valid():  # Sent information cannot be saved in the database until it is verified
 
             new_entry = form.save(commit=False)
-            # When calling save(), we include the commit=False argument to create
-            # a new record object and save it to new_entry without saving it to the database yet
+            ''' 
+            When calling save(), we include the commit=False argument to create
+            a new record object and save it to new_entry without saving it to the database yet
+            '''
 
-            new_entry.topic = topic
+            new_entry.topic = topic 
             new_entry.save()
-            # We assign to the topic attribute of the new_entry object the topic
-            # read from the database at the beginning of the function and then call save() without arguments.
-            # The result is that the entry is saved in the database database with the correctly associated topic.
+            '''We assign to the topic attribute of the new_entry object the topic
+            read from the database at the beginning of the function and then call save() without arguments.
+            The result is that the entry is saved in the database database with the correctly associated topic.
+            '''
 
             return redirect('learning_logs:topic', topic_id=topic_id)
-            # The redirect() call takes two arguments: the name of the view to which control is transferred
-            # and the argument for the view function
+            '''The redirect() call takes two arguments: the name of the view to which control is transferred
+            and the argument for the view function
+            '''
 
     # Output a blank or invalid form
     context = {'topic': topic, 'form': form, }
@@ -138,20 +149,26 @@ def edit_entry(request, entry_edit):
 
     if topic.owner != request.users:
         raise Http404
-    # Whether the topic owner matches the current user; 
-    # an Http404 exception is thrown if it does not.
+        '''
+        Whether the topic owner matches the current user;
+        an Http404 exception is thrown if it does not.
+        '''
 
     if request.method != 'POST':
         # Initial query; the form is filled with the data of the current record
         form = EntryForm(instance=entry)
-        # The argument tells Django to create a form, pre-filled with information from
-        # an existing record object. The user sees his existing data and can edit it.
+        '''
+        The argument tells Django to create a form, pre-filled with information from
+        an existing record object. The user sees his existing data and can edit it.
+        '''
 
     else:
         # Send POST data; process the data
         form = EntryForm(instance=entry, data=request.POST)
-        # They command Django to create a form instance based on the information of an existing record object,
-        # updated with data from request.POST
+        '''
+        They command Django to create a form instance based on the information of an existing record object,
+        updated with data from request.POST
+        '''
 
         if form.is_valid():
             form.save()  # If the data is correct, a call to save() without arguments follows
