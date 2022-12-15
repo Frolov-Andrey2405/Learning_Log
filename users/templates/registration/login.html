@@ -1,21 +1,20 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %} <!-- bootstrap4 template tags are loaded -->
+
+{% block page_header %} <!-- The page_header block is defined, which describes what the page is for -->
+<h2>Log in to your account.</h2>
+{% endblock page_header %}
+
+
 {% block content %}
 
-{% if form.errors %}
-<!-- If the form's errors attribute is set, an error message is displayed -->
-
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<form method="post" action="{% url 'users:login' %}">
-    <!-- The view processes the form, the action argument is assigned to the URL of the login page -->
+<form method="post" action="{% url 'users:login' %}" class="form"> <!-- New attribute -->
 
     {% csrf_token %}
-    {{ form.as_p }}
-    <!-- The view sends the form to the template, we have to output the form -->
-
-    <button name="submit">log in</button>
-    <!-- Button to send data -->
+    {% bootstrap_form form %} <!-- The {% bootstrap_form %} template tag is used; it replaces the {{ form.as_p }} -->
+    {% buttons %} <!-- Adds Bootstrap styling to buttons -->
+    <button name="submit" class="btn-primary">Log in</button>
+    {% endbuttons %}
 
     <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
     <!-- Enables the hidden 'next' form element; the value argument tells 
