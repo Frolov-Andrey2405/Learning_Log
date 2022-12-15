@@ -1,25 +1,100 @@
-<p>
-    <!-- Creates a paragraph with the name of the project, which also works as a link to the home page -->
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
-    <!-- We add a dash after the link to the home page, and then add a link to the topics page  -->
+{% load bootstrap4 %}
+<!-- Loads a collection of template tags from django-bootstrap4 -->
 
-    {% if user.is_authenticated %}
-    <!-- Display a welcome message for users who have logging in -->
+<!doctype html>
+<html lang="en">
 
-    Hello, {{ user.username }}.
-    <!-- Verified users have an additional attribute username, 
-        which will provide a personalized greeting and remind the user that the login has been -->
+<head> <!-- Caption -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Learning Log</title>
 
-    <a href="{% url 'users:logout' %}">Log out</a>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    <!-- 
+        One of the django-bootstrap4 template tags is used, which tells Django 
+        to enable all the Bootstrap style files. The following tag activates all 
+        interactive behavior that can be used on the page, such as sliding navigation bars 
+    -->
 
-    {% else %}
-    <a href="{% url 'users:register' %}">Register</a> -
-    <!-- Non-registered users see a link to the registration page and a login link -->
+</head>
 
-    <a href="{% url 'users:login' %}">log in</a>
-    <!-- The link to the login page for users who have not yet been verified -->
-    {% endif %}
-</p>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+        <!-- 
+            Indicates a section of navigational links on the page. 
+            All content within this element is styled according to Bootstrap 
+            rules defined by the navbar, navbar-expand-md, and other selectors 
+        -->
 
-{% block content %}{% endblock content %}
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+            Learning Log
+        </a>
+        <!-- 
+            Specifies the project name, which is displayed at the left edge of the navigation bar. 
+            The name of the project is set and a link to the home page is created; 
+            it will be displayed on every page of the project. every page of the project. 
+            The navbar-brand selector makes this link it stands out from other links; 
+            this design becomes part of the brand identity of the site. part of the site's branding
+        -->
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span></button>
+        <!-- 
+            The template defines a button that will be displayed if the width of the browser window 
+            is not wide enough to display the entire navigation bar horizontally. 
+            When the user clicks the button, the navigation items are displayed in a drop-down list. 
+            The collapse attribute collapses the navigation bar when the browser window is reduced in 
+            size and when the site is displayed on mobile devices with small screens
+        -->
+
+        <div class="collapse navber-collapse" id="navbarCollapse">
+            <!-- 
+                A new section of the navigation bar opens. 
+                In the process of building a web page, the developer divides it into sections and determines 
+                the styles and rules of behavior that apply to the current section. 
+                All style directives and rules of behavior defined in the opening div tag continue until 
+                the next closing div tag, which is written as </div>. This is the start of the part of the 
+                navigation bar that will collapse on narrow screens and windows 
+            -->
+
+            <ul class="navbar-nav mr-auto"> <!-- A new set of links is defined -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'learning_logs:topics' %}">
+                        Topics
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto"> <!--  a new set of links starts with another opening <ul> tag -->
+                {% if user.is_authenticated %}
+
+                <li class="nav-item">
+                    <span class="navbar-text" }">Hello, {{ user.username }}.</span> <!-- Used to design the text in the navigation bar -->
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                </li>
+
+                {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+        <!-- 
+            Closes the div element with parts of the navigation bar, 
+            which are collapsed on narrow screens, and at the end of the 
+            section closes the navigation bar as a whole 
+        -->
+
+    </nav> 
+</body>
