@@ -13,7 +13,7 @@ def index(request):
 
 
 @login_required
-def topics(request):
+def topics(request, topic_id):
     """Show all topics"""
     topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     # A query to the database for Topic objects sorted by the date_added attribute is issued
