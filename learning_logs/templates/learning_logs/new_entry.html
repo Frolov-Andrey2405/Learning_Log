@@ -1,22 +1,14 @@
-{% extends 'learning_logs/base.html' %}
-
+{% extends "learning_logs/base.html" %}
 
 {% block content %}
 
-<p><a href="{% url 'learning_logs:topic' topic.id %" }>{{ topic }}</a></p>
-<!-- The topic is displayed at the beginning of the page, 
-    so that the user can see in which topic a new entry is added. 
-    The topic also serves as a link to the home page of this topic -->
+<p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
 
 <p>Add a new entry:</p>
-
-<form action="{% url 'learning_logs:new_entry' topic.id %}" method="post">
-    <!-- The form's action argument includes the topic_id value from 
-        the URL so that the view function can associate the new entry with the correct topic -->
-
-    {% csrf_token %} <!-- Template tag to prevent unauthorized attempts to access the server -->
-    {{ form.as_p }} <!-- A form is displayed -->
-    <button name="submit">Add entry</button>
+<form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name='submit'>Add entry</button>
 </form>
 
 {% endblock content %}

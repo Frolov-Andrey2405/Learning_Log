@@ -15,17 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# The first two lines import functions and modules that
-# manage project URLs and the administrative site
 
-# The urlpatterns variable is defined in the file body
+
 urlpatterns = [
     # The code includes the admin.site.urls module, which defines all URLs that can be requested from the administrative site
     path('admin/', admin.site.urls),
 
     # This string will match any URL that starts with the word users
-    path('users/', include('users.urls')),
+    path('users/', include('users.urls', namespace='users')),
 
     # A line is added to enable the learning_logs.urls module
-    path('', include('learning_logs.urls')),
+    path('', include('learning_logs.urls', namespace='learning_logs')),
 ]

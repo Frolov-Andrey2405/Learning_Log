@@ -1,19 +1,17 @@
-"""Defines URL schemes for users"""
+"""Defines URL patterns for users"""
 
-from django.urls import path, include
-# First the path function is imported and then the include function
-# to include the default authentication URLs defined by Django
-
+from django.contrib.auth.views import LoginView
+from django.urls import path
 from . import views
 
-app_name = 'users'
-# The app_name variable is set to 'users' so that the Django infrastructure
-# can distinguish these URLs from URLs belonging to other applications
+app_name = "users"
 
 urlpatterns = [
-    # Turn on the default authorization URL.
-    path('', include('django.contrib.auth.urls')),
-    # http://localhost:8000/users/login/
+    # Login page
+    path('login/', LoginView.as_view(template_name='users/login.html'), name="login"),
+
+    # Logout page
+    path('logout/', views.logout_view, name='logout'),
 
     # Registration page
     path('register/', views.register, name='register'),
