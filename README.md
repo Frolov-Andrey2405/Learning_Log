@@ -9,5 +9,7 @@ During the development 🔧 of the project, the Django administrative system was
 #### Requirements
 - **[Python 3.x+](https://www.python.org/)**
 - **[Django 2.x+](https://www.djangoproject.com/)**
+- **[Bootstrap 4.x+](https://getbootstrap.com/)**
+
 
 **📔 Practical project of the "Python Crash Course" book.**
